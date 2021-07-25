@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+    api:
+        build:
+            args:
+                - GO_VERSION=1.16
+            context: .
+            dockerfile: ./build/dev-image/api-server/Dockerfile
+        container_name: go_dev_api_server
+        ports:
+            - 9090:9090
+        volumes:
+            - ./.:/app/.
