@@ -1,9 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"github.com/andreasds/go-boilerplate/internal/shared/logger"
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	// Initialize logger
+	logger.InitLogger()
+
+	log.Info().Msg("API Server application is starting.")
 }
