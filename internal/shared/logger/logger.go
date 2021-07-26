@@ -10,10 +10,14 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-// InitLogger initialize the logger
+const (
+	defaultLogLevel = zerolog.TraceLevel
+)
+
+// InitLogger initializes the logger
 func InitLogger() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	zerolog.SetGlobalLevel(zerolog.TraceLevel)
+	zerolog.SetGlobalLevel(defaultLogLevel)
 
 	output := zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
 	output.FormatLevel = formatLevel
@@ -22,25 +26,42 @@ func InitLogger() {
 	output.FormatFieldValue = formatFieldValue
 
 	log.Logger = log.Output(output)
-	log.Trace().Msg("Logger initialized.")
+	log.Info().Msg("Logger initialized.")
 }
 
-// formatLevel set format log level
+// formatLevel sets format log level
 func formatLevel(i interface{}) string {
 	return strings.ToUpper(fmt.Sprintf("| %-5s |", i))
 }
 
-// formatMessage set format log message
+// formatMessage sets format log message
 func formatMessage(i interface{}) string {
 	return fmt.Sprintf("%s", i)
 }
 
-// formatFieldName set format log field name
+// formatFieldName sets format log field name
 func formatFieldName(i interface{}) string {
 	return fmt.Sprintf("%s=", i)
 }
 
-// formatFieldValue set format log field value
+// formatFieldValue sets format log field value
 func formatFieldValue(i interface{}) string {
 	return fmt.Sprintf("%s", i)
+}
+
+// SetLogLevel sets global log level
+func SetLogLevel(logLevel string) {
+	trimmedLevel := strings.TrimSpace(logLevel)
+	level, err := zerolog.ParseLevel(trimmedLevel)
+	if trimmedLevel == "" || err != nil {
+		level = defaultLogLevel
+		log.Debug().
+			Str("logLevel", level.String()).
+			Msg("Application has no log level configuration.")
+	} else {
+		log.Debug().
+			Str("logLevel", level.String()).
+			Msg("Log level has been set up.")
+	}
+	zerolog.SetGlobalLevel(level)
 }
