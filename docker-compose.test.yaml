@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+    api:
+        build:
+            args:
+                - GO_VERSION=1.16
+            context: .
+            dockerfile: ./build/test-image/api-server/Dockerfile
+        container_name: go_test_api_server
+        volumes:
+            - ./.:/app/.
