@@ -7,6 +7,4 @@ RUN apk update && apk upgrade && \
 
 WORKDIR /app
 
-EXPOSE 9090
-
-CMD make dev
+CMD make test
