@@ -4,7 +4,7 @@ services:
     api:
         build:
             args:
-                - GO_VERSION=1.16
+                - GO_VERSION=${GO_VERSION}
             context: .
             dockerfile: ./build/dev-image/api-server/Dockerfile
         container_name: go_dev_api_server

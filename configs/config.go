@@ -11,6 +11,26 @@ const (
 )
 
 type Config struct {
+	DB struct {
+		MySQL struct {
+			Read struct {
+				Host     string `mapstructure:"HOST"`
+				Name     string `mapstructure:"NAME"`
+				Password string `mapstructure:"PASSWORD"`
+				Port     int    `mapstructure:"PORT"`
+				User     string `mapstructure:"USER"`
+			} `mapstructure:"READ"`
+
+			Write struct {
+				Host     string `mapstructure:"HOST"`
+				Name     string `mapstructure:"NAME"`
+				Password string `mapstructure:"PASSWORD"`
+				Port     int    `mapstructure:"PORT"`
+				User     string `mapstructure:"USER"`
+			} `mapstructure:"WRITE"`
+		} `mapstructure:"MYSQL"`
+	} `mapstructure:"DB"`
+
 	Server struct {
 		LogLevel string `mapstructure:"LOG_LEVEL"`
 	} `mapstructure:"SERVER"`

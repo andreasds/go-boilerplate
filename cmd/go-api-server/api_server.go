@@ -1,11 +1,15 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/andreasds/go-boilerplate/configs"
 	"github.com/andreasds/go-boilerplate/internal/application"
+	"github.com/andreasds/go-boilerplate/internal/infrastucture/database"
 	"github.com/andreasds/go-boilerplate/internal/infrastucture/persistence"
 	"github.com/andreasds/go-boilerplate/internal/interfaces"
 	"github.com/andreasds/go-boilerplate/internal/shared/logger"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gofrs/uuid"
 	"github.com/rs/zerolog/log"
 )
@@ -20,12 +24,18 @@ func main() {
 	// Sets log level
 	logger.SetLogLevel(config.Server.LogLevel)
 
-	db := "Hello World!"
-	fooRepository := persistence.NewFooRepository(&db)
+	// Initializes database
+	db, _ := database.CreateDBConnection(
+		config.DB.MySQL.Read.User,
+		config.DB.MySQL.Read.Password,
+		config.DB.MySQL.Read.Host,
+		fmt.Sprint(config.DB.MySQL.Read.Port),
+		config.DB.MySQL.Read.Name,
+	)
+	fooRepository := persistence.NewFooRepository(db)
 	fooApplication := application.NewFooApplication(fooRepository)
 	foo := interfaces.NewFooHandler(fooApplication)
-	id, _ := uuid.NewV4()
-	foo.ResolveFooByID(id)
+	foo.ResolveFooByID(uuid.FromStringOrNil("f5610c25-91ed-4c18-9beb-4272a2e7ca90"))
 
 	log.Info().Msg("API Server application is starting.")
 }
