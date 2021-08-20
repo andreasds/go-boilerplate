@@ -8,10 +8,12 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// FooHandler provides foo handler use case
 type FooHandler struct {
 	FooApplication application.FooApplication
 }
 
+// NewFooHandler provides `FooHandler`
 func NewFooHandler(fooApplication application.FooApplication) *FooHandler {
 	h := new(FooHandler)
 	h.FooApplication = fooApplication
@@ -19,7 +21,10 @@ func NewFooHandler(fooApplication application.FooApplication) *FooHandler {
 	return h
 }
 
-func (h *FooHandler) ResolveFooByID(id uuid.UUID) {
+// ResolveFooByID resolve foo by its identifier
+func (h *FooHandler) ResolveFooByID(
+	id uuid.UUID,
+) {
 	foo, err := h.FooApplication.ResolveFooByID(id)
 	if err != nil {
 		log.Error().Msg(fmt.Sprint(err.Error()))

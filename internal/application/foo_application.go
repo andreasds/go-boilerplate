@@ -6,15 +6,21 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+// FooApplication represent application of the foo.
+// Expect implementation by the application layer
 type FooApplication interface {
 	ResolveFooByID(id uuid.UUID) (entity.Foo, error)
 }
 
+// FooApp provides foo application use case
 type FooApp struct {
 	FooRepository repository.FooRepository
 }
 
-func NewFooApplication(fooRepository repository.FooRepository) *FooApp {
+// NewFooApplication provides `FooApp`
+func NewFooApplication(
+	fooRepository repository.FooRepository,
+) *FooApp {
 	f := new(FooApp)
 	f.FooRepository = fooRepository
 
@@ -24,6 +30,10 @@ func NewFooApplication(fooRepository repository.FooRepository) *FooApp {
 // FooApp implements the FooApplication interface
 var _ FooApplication = &FooApp{}
 
-func (f *FooApp) ResolveFooByID(id uuid.UUID) (foo entity.Foo, err error) {
-	return f.FooRepository.ResolveFooByID(id)
+// ResolveFooByID resolve foo by its identifier
+func (f *FooApp) ResolveFooByID(
+	id uuid.UUID,
+) (foo entity.Foo, err error) {
+	foo, err = f.FooRepository.ResolveFooByID(id)
+	return
 }

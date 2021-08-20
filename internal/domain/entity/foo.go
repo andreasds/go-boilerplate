@@ -7,6 +7,7 @@ import (
 	"gopkg.in/guregu/null.v4"
 )
 
+// Foo represent entity of the foo
 type Foo struct {
 	ID           uuid.UUID   `db:"id"`
 	ReceiptName  string      `db:"receipt_name"`

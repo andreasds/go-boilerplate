@@ -2,11 +2,11 @@ package persistence
 
 var (
 	fooQueries = struct {
-		From string
-		All  string
+		From     string
+		AllField string
 	}{
-		From: `FROM foo f `,
-		All: `
+		From: ` FROM foo f`,
+		AllField: `
 			f.id,
 			f.receipt_name,
 			f.receipt_notes,
