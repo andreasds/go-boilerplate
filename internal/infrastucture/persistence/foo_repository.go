@@ -23,7 +23,11 @@ func NewFooRepository(db *database.MySQLConnection) *FooRepo {
 var _ repository.FooRepository = &FooRepo{}
 
 func (r *FooRepo) ResolveFooByID(id uuid.UUID) (foo entity.Foo, err error) {
-	err = r.db.Read.Get(&foo, "SELECT "+fooQueries.All+fooQueries.From+"WHERE id = UUID_TO_BIN(?)", id)
+	err = r.db.Read.Get(
+		&foo,
+		"SELECT "+fooQueries.All+fooQueries.From+"WHERE id = UUID_TO_BIN(?)",
+		id,
+	)
 	if err != nil {
 		log.Error().Err(err)
 		return
