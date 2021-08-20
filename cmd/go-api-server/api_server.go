@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/andreasds/go-boilerplate/configs"
 	"github.com/andreasds/go-boilerplate/internal/application"
 	"github.com/andreasds/go-boilerplate/internal/infrastucture/database"
@@ -25,14 +23,8 @@ func main() {
 	logger.SetLogLevel(config.Server.LogLevel)
 
 	// Initializes database
-	db, _ := database.CreateDBConnection(
-		config.DB.MySQL.Read.User,
-		config.DB.MySQL.Read.Password,
-		config.DB.MySQL.Read.Host,
-		fmt.Sprint(config.DB.MySQL.Read.Port),
-		config.DB.MySQL.Read.Name,
-	)
-	fooRepository := persistence.NewFooRepository(db)
+	mySQLConnection := database.NewMySQLConnection(config)
+	fooRepository := persistence.NewFooRepository(mySQLConnection)
 	fooApplication := application.NewFooApplication(fooRepository)
 	foo := interfaces.NewFooHandler(fooApplication)
 	foo.ResolveFooByID(uuid.FromStringOrNil("f5610c25-91ed-4c18-9beb-4272a2e7ca90"))
