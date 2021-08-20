@@ -10,16 +10,22 @@ import (
 )
 
 const (
+	// maxIdleConnection maximum database idle connection
 	maxIdleConnection = 10
+	// maxOpenConnection maximum database open connection
 	maxOpenConnection = 10
 )
 
+// MySQLConnection provides MySQL connection use case
 type MySQLConnection struct {
 	Read  *sqlx.DB
 	Write *sqlx.DB
 }
 
-func NewMySQLConnection(config *configs.Config) *MySQLConnection {
+// NewMySQLConnection provides`MySQLConnection`
+func NewMySQLConnection(
+	config *configs.Config,
+) *MySQLConnection {
 	connection := new(MySQLConnection)
 	connection.Read = createDBConnection(
 		"read",
@@ -41,6 +47,7 @@ func NewMySQLConnection(config *configs.Config) *MySQLConnection {
 	return connection
 }
 
+// createDBConnection providesinitialized MySQL connection
 func createDBConnection(
 	method string,
 	username string,

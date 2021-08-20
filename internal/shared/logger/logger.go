@@ -11,6 +11,7 @@ import (
 )
 
 const (
+	// defaultLogLevel default log level
 	defaultLogLevel = zerolog.TraceLevel
 )
 
@@ -30,27 +31,37 @@ func InitLogger() {
 }
 
 // formatLevel sets format log level
-func formatLevel(i interface{}) string {
+func formatLevel(
+	i interface{},
+) string {
 	return strings.ToUpper(fmt.Sprintf("| %-5s |", i))
 }
 
 // formatMessage sets format log message
-func formatMessage(i interface{}) string {
+func formatMessage(
+	i interface{},
+) string {
 	return fmt.Sprintf("%s", i)
 }
 
 // formatFieldName sets format log field name
-func formatFieldName(i interface{}) string {
+func formatFieldName(
+	i interface{},
+) string {
 	return fmt.Sprintf("%s=", i)
 }
 
 // formatFieldValue sets format log field value
-func formatFieldValue(i interface{}) string {
+func formatFieldValue(
+	i interface{},
+) string {
 	return fmt.Sprintf("%s", i)
 }
 
 // SetLogLevel sets global log level
-func SetLogLevel(logLevel string) {
+func SetLogLevel(
+	logLevel string,
+) {
 	trimmedLevel := strings.TrimSpace(logLevel)
 	level, err := zerolog.ParseLevel(trimmedLevel)
 	if trimmedLevel == "" || err != nil {

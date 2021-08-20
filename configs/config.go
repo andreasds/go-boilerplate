@@ -6,7 +6,9 @@ import (
 )
 
 const (
+	// configFileName config file name
 	configFileName = ".env"
+	// configFilePath path to config file
 	configFilePath = "./"
 )
 
@@ -37,9 +39,11 @@ type Config struct {
 }
 
 var (
+	// instance singleton object of configuration
 	instance *Config
 )
 
+// GetInstance get singleton object of configuration
 func GetInstance() *Config {
 	if instance == nil {
 		filePath := configFilePath + configFileName
@@ -49,7 +53,11 @@ func GetInstance() *Config {
 	return instance
 }
 
-func GetConfig(filePath string, config interface{}) {
+// GetConfig unmarshal configuration file into `config` structure
+func GetConfig(
+	filePath string,
+	config interface{},
+) {
 	viper.SetConfigFile(filePath)
 	err := viper.ReadInConfig()
 	if err != nil {

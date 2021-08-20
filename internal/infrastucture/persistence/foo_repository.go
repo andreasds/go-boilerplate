@@ -8,11 +8,15 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// FooRepo provides foo repository use case
 type FooRepo struct {
 	db *database.MySQLConnection
 }
 
-func NewFooRepository(db *database.MySQLConnection) *FooRepo {
+// NewFooRepository provides `FooRepo`
+func NewFooRepository(
+	db *database.MySQLConnection,
+) *FooRepo {
 	r := new(FooRepo)
 	r.db = db
 
@@ -22,10 +26,13 @@ func NewFooRepository(db *database.MySQLConnection) *FooRepo {
 // FooRepo implements the repository.FooRepository interface
 var _ repository.FooRepository = &FooRepo{}
 
-func (r *FooRepo) ResolveFooByID(id uuid.UUID) (foo entity.Foo, err error) {
+// ResolveFooByID resolve foo by its identifier
+func (r *FooRepo) ResolveFooByID(
+	id uuid.UUID,
+) (foo entity.Foo, err error) {
 	err = r.db.Read.Get(
 		&foo,
-		"SELECT "+fooQueries.All+fooQueries.From+"WHERE id = UUID_TO_BIN(?)",
+		"SELECT"+fooQueries.AllField+fooQueries.From+" WHERE id = UUID_TO_BIN(?)",
 		id,
 	)
 	if err != nil {
