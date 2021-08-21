@@ -10,6 +10,8 @@
 - Configuration
   - [Mapstructure] is a Go library for decoding generic map values to structures and vice versa
   - [Viper] is a complete configuration solution for Go applications including 12-Factor apps
+- Dependency Injection
+  - [wire] is a code generation tool that automates connecting components using dependency injection
 - Testing
   - [Testify] Thou Shalt Write Tests
   - [Gomock] is a mocking framework for Go
@@ -36,4 +38,5 @@
   [Ssense Tech DDD]: https://medium.com/ssense-tech/domain-driven-design-everything-you-always-wanted-to-know-about-it-but-were-afraid-to-ask-a85e7b74497a
   [Testify]: https://github.com/stretchr/testify
   [Viper]: https://github.com/spf13/viper
+  [wire]: https://github.com/google/wire
   [Zerolog]: https://github.com/rs/zerolog
