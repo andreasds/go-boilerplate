@@ -3,3 +3,6 @@
 
 # Ignore mock file
 **mock*
+
+# Ignore generated wiring file
+**wire_gen.go
